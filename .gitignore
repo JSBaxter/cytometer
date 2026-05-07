@@ -8,6 +8,14 @@
 # Build / cache
 .venv/
 
+# Python build artifacts — always present because the bundled queue
+# under dev-tools/queue/ is Python regardless of the cell's primary
+# language. .pytest_cache is included here for the same reason.
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
 # Queue runtime state — code is committed; the live DB is not.
 dev-tools/queue/queue.db
 dev-tools/queue/queue.db-*
