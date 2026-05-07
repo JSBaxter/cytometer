@@ -31,9 +31,10 @@ truth.
   Pre-commit hook config. `pnpm install` wires it up.
 - `dev-tools/`
   Local-only tooling that runs on a developer's machine. Houses
-  the bundled `queue/` MCP server, used by every agent working on
-  this cell. Self-contained Python (uv venv) — independent of the
-  cell's primary JS toolchain.
+  the bundled `queue/` MCP server (self-contained Python via uv
+  venv, independent of the cell's primary JS toolchain) and
+  `agent-bot/` (wrappers for the GitHub App bot identity that
+  authors the agent's commits and PRs).
 
 ## Toolchain
 
