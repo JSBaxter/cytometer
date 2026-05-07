@@ -79,13 +79,70 @@ ceremonies before starting unrelated work.
 
 ## Tooling conventions
 
+### Primary language
+
+The cell's primary language is **TypeScript** on a **SvelteKit** web
+app. The bundled queue under `dev-tools/queue/` is Python and
+self-contained (`uv` venv) — its toolchain is independent of the
+cell's primary language.
+
 ### Quality checks
 
-This cell is language-agnostic. Add the appropriate quality tooling
-when you commit to a primary language: linter, formatter, test
-runner, type checker. The bundled queue under `dev-tools/queue/`
-brings its own Python toolchain via `uv` regardless of the cell's
-primary language.
+The cell ships a single aggregate gate at the repo root:
+
+```bash
+pnpm run check
+```
+
+That runs, in order:
+
+1. `pnpm run format:check` — Prettier in check mode
+2. `pnpm run lint` — ESLint
+3. `pnpm run check:types` — `svelte-kit sync` + `svelte-check`
+4. `pnpm run test` — Vitest, single run
+
+Component scripts:
+
+| Script                    | What it does                              |
+|---------------------------|-------------------------------------------|
+| `pnpm run dev`            | Vite dev server                           |
+| `pnpm run build`          | Production build via the configured adapter |
+| `pnpm run preview`        | Preview the production build              |
+| `pnpm run format`         | Prettier `--write`                        |
+| `pnpm run format:check`   | Prettier `--check`                        |
+| `pnpm run lint`           | ESLint                                    |
+| `pnpm run check:types`    | `svelte-check` once                       |
+| `pnpm run check:types:watch` | `svelte-check` in watch mode           |
+| `pnpm run test:unit`      | Vitest in watch mode                      |
+| `pnpm run test`           | Vitest single-run (CI / pre-commit mode)  |
+| `pnpm run check`          | Aggregate gate (all of the above)         |
+
+### Package manager
+
+`pnpm`, pinned via the `packageManager` field in `package.json` and
+auto-installed by Corepack on `pnpm install`. To bootstrap on a
+fresh machine:
+
+```bash
+corepack enable
+pnpm install
+```
+
+Node `≥ 22` is required (see `engines.node`).
+
+### Pre-commit hook
+
+`pnpm install` configures a Husky pre-commit hook (`.husky/pre-commit`)
+that runs `pnpm run check`. The hook is committed to the repo, so it
+sets itself up on every clone. Don't bypass it with `--no-verify` —
+fix the failing check instead.
+
+### CI
+
+`.github/workflows/quality.yml` runs the same `pnpm run check` on
+every push to `main` and on every PR. The pre-commit hook and CI
+are intentionally redundant: the hook gives fast local feedback,
+CI is the durable record.
 
 ---
 
@@ -166,6 +223,10 @@ Use one of (extend the list in this file as the cell grows):
 - `docs` — repo-level docs (README, STATE, CONTRIBUTING, etc.)
 - `dev-tools` — anything under `dev-tools/`
 - `queue` — `dev-tools/queue/` specifically
+- `web` — SvelteKit app source under `src/` and its top-level configs
+  (`package.json`, `svelte.config.js`, `vite.config.ts`, `tsconfig.json`,
+  `eslint.config.js`, `.prettierrc`, `.husky/`)
+- `ci` — `.github/workflows/` and other CI plumbing
 
 Scope is optional if genuinely cross-cutting, but prefer to set it.
 

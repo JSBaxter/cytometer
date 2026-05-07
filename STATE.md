@@ -13,23 +13,22 @@ The structure stays even when the content doesn't.
 
 Web app that points at a cell repo and runs graph algorithms and static analysis to report on cell health.
 
-Nothing live yet — fill this in once the cell ships its first
-real artifact.
+The app itself is not yet implemented — the cell currently ships
+only a JS toolchain and a SvelteKit dev shell (default scaffold,
+single landing page). No graph algorithms, no static analysis, no
+deploy target picked yet.
 
 ---
 
 ## What's running
 
-Nothing yet.
-
-Examples of what would belong here once the cell has output:
-
-- A service or daemon, with where it runs and the address it's
-  reachable at
-- A scheduled job, with the schedule and the system that runs it
-- A library, with its current released version and where it's
-  published
-- A CLI, with where it's installed and its current version
+- A SvelteKit dev server, locally only, via `pnpm run dev`. Not
+  exposed to a network or a deployment target.
+- The `quality` GitHub Actions workflow on
+  `https://github.com/JSBaxter/cytometer`, running `pnpm run check`
+  on every push to `main` and on every PR.
+- A Husky pre-commit hook (`.husky/pre-commit`) running
+  `pnpm run check` locally on every commit attempt.
 
 ---
 
@@ -37,11 +36,17 @@ Examples of what would belong here once the cell has output:
 
 ### Build / runtime
 
-Nothing language-specific yet — this cell is currently
-language-agnostic.
+- **Node** `≥ 22` — required by `engines.node` in `package.json`.
+- **pnpm** — version pinned via the `packageManager` field;
+  installed automatically by Corepack on `pnpm install`.
+- **SvelteKit + Vite + Svelte 5** — declared in `package.json`,
+  resolved via `pnpm-lock.yaml`.
+- **Adapter:** `@sveltejs/adapter-auto` (default scaffold; will be
+  swapped for a concrete adapter when a deploy target is picked).
+
 ### External
 
-Nothing yet.
+Nothing yet — the app makes no outbound network calls.
 
 ---
 

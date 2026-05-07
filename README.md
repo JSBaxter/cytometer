@@ -19,11 +19,33 @@ truth.
 
 ## Active directories
 
+- `src/`
+  SvelteKit app source — `routes/`, `lib/`, `app.html`, `app.d.ts`.
+  This is where the web app lives.
+- `static/`
+  Static assets served as-is (favicon, robots.txt, etc.).
+- `.github/workflows/`
+  CI pipelines — currently `quality.yml` (format + lint + types +
+  tests on every push and PR).
+- `.husky/`
+  Pre-commit hook config. `pnpm install` wires it up.
 - `dev-tools/`
   Local-only tooling that runs on a developer's machine. Houses
   the bundled `queue/` MCP server, used by every agent working on
-  this cell.
-(Add directories here as the cell grows.)
+  this cell. Self-contained Python (uv venv) — independent of the
+  cell's primary JS toolchain.
+
+## Toolchain
+
+- **Runtime / framework:** SvelteKit on Node ≥ 22
+- **Language:** TypeScript
+- **Package manager:** pnpm (pinned via `packageManager` in
+  `package.json`; bootstrap with `corepack enable && pnpm install`)
+- **Quality gate:** `pnpm run check` (Prettier, ESLint,
+  `svelte-check`, Vitest). Wired into a Husky pre-commit hook and
+  GitHub Actions.
+
+See `CONTRIBUTING.md` for the full set of scripts and conventions.
 
 ## Reproduction
 
