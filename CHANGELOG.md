@@ -10,6 +10,9 @@ and this cell adheres to [Semantic Versioning](https://semver.org/).
 
 - Initial cell scaffold from
   [`stem-cell`](https://github.com/JSBaxter/stem-cell).
+- JS toolchain: SvelteKit + TypeScript + Vite, ESLint + Prettier,
+  Vitest, `pnpm run check` aggregate gate, Husky pre-commit hook,
+  `.github/workflows/quality.yml` CI workflow.
 
 ### Changed
 

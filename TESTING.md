@@ -93,6 +93,27 @@ The queue ships with its own test suite that covers the domain,
 the SQLite round-trip, the MCP dispatch, and stdio end-to-end.
 Treat it as part of the cell's contract.
 
+### Web app (SvelteKit, anything under `src/` or top-level JS configs)
+
+**Required before committing:**
+
+1. `pnpm run check` clean — runs Prettier, ESLint, `svelte-check`,
+   and Vitest in one go.
+2. If you touched routing, server endpoints, or data loaders,
+   exercise them once with `pnpm run dev` and a browser before
+   pushing. Type checking and tests verify code shape, not feature
+   shape — manually open the page or hit the route.
+3. If you added a new dependency, confirm the lockfile change is
+   intentional and `pnpm install --frozen-lockfile` would still
+   succeed (CI runs that exact form).
+
+**Required before merging:**
+
+4. The `quality` GitHub Actions workflow runs on the PR and is
+   green. The pre-commit hook is the same gate locally — if CI
+   fails, reproduce locally with `pnpm run check`, never bypass
+   with `--no-verify`.
+
 ---
 
 ## What NOT to test — anti-patterns to avoid
@@ -129,6 +150,15 @@ Use the block that matches your PR. Combine if the PR spans layers.
 - [ ] Schema migrations (if any) are documented
 - [ ] MCP tool surface changes (if any) are reflected in
       `dev-tools/queue/README.md`
+
+### Web app (SvelteKit / `src/` / top-level JS configs)
+
+- [ ] `pnpm run check` clean (Prettier, ESLint, svelte-check, Vitest)
+- [ ] If route / endpoint / loader changed: exercised once in a
+      browser via `pnpm run dev`
+- [ ] Lockfile changes (if any) are intentional;
+      `pnpm install --frozen-lockfile` still installs
+- [ ] `quality` workflow green on the PR
 
 ### Docs / repo meta
 

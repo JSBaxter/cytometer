@@ -1,0 +1,44 @@
+---
+name: quality
+
+'on':
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: format + lint + types + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          # setup-node@v5 defaults `package-manager-cache: true` and
+          # auto-detects pnpm from `packageManager` in package.json. That
+          # fails here because pnpm isn't on PATH until the corepack step
+          # below. Disable the implicit cache; if dependency-resolution
+          # time becomes a problem, add explicit caching with
+          # `actions/cache` keyed on `pnpm-lock.yaml`.
+          package-manager-cache: false
+
+      - name: Enable corepack (provides pnpm via packageManager field)
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run check (format + lint + types + test)
+        run: pnpm run check

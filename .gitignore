@@ -25,6 +25,19 @@ dev-tools/queue/queue.db-*
 .idea/
 .vscode/
 .DS_Store
+Thumbs.db
+
+# JS / SvelteKit toolchain — node_modules, build output, generated types,
+# adapter scratch dirs, vite timestamp files.
+node_modules/
+.svelte-kit/
+/build/
+.output/
+.vercel/
+.netlify/
+.wrangler/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
 
 # Copier answers ARE committed (lineage / update support).
 # Do not add .copier-answers.yml here.

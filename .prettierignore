@@ -1,0 +1,46 @@
+# Package manager + lockfiles
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Build output / generated
+node_modules/
+.svelte-kit/
+/build/
+.output/
+.vercel/
+.netlify/
+.wrangler/
+
+# Static assets
+/static/
+
+# Cell doc spine + copier-managed metadata
+# (stem-cell template owns the formatting of these; reformatting here
+#  would generate spurious diffs on `copier update`.)
+*.md
+.copier-answers.yml
+
+# Out-of-scope subsystems with their own toolchains
+/dev-tools/
+
+# Harness / IDE / Claude-managed
+.claude/
+.idea
+.vscode
+.mcp.json
+
+# Sandbox device-file shadows. These only appear when running inside
+# certain agent harnesses that mount `/dev/null`-style shadows for the
+# user's shell config files at the repo root. They don't exist in a
+# normal user checkout — these entries are no-ops outside the sandbox.
+.bash_profile
+.bashrc
+.gitconfig
+.gitmodules
+.profile
+.ripgreprc
+.zprofile
+.zshrc
