@@ -26,6 +26,13 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '22'
+          # setup-node@v5 defaults `package-manager-cache: true` and
+          # auto-detects pnpm from `packageManager` in package.json. That
+          # fails here because pnpm isn't on PATH until the corepack step
+          # below. Disable the implicit cache; if dependency-resolution
+          # time becomes a problem, add explicit caching with
+          # `actions/cache` keyed on `pnpm-lock.yaml`.
+          package-manager-cache: false
 
       - name: Enable corepack (provides pnpm via packageManager field)
         run: corepack enable
