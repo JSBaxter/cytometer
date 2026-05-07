@@ -1,0 +1,18 @@
+# This file is auto-managed by copier. Do not edit by hand.
+# `copier update` reads it to know which template version this cell is
+# pinned to. Commit it.
+
+_src_path: /home/james/Documents/repos/cells/stem-cell
+copyright_holder: James Baxter
+copyright_year: 2026
+github_remote: true
+include_agent_container: false
+include_bot_identity: false
+language: none
+license: MIT
+operator_email: james@jsbaxter.dev
+operator_name: James Baxter
+project_description: ''
+project_name: cytometer
+project_purpose: Web app that points at a cell repo and runs graph algorithms and
+    static analysis to report on cell health.
