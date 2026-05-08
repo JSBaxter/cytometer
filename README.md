@@ -31,6 +31,7 @@ truth.
   Pre-commit hook config. `pnpm install` wires it up.
 - `dev-tools/`
   Local-only tooling that runs on a developer's machine. Houses
+<<<<<<< before updating
   the bundled `queue/` MCP server (self-contained Python via uv
   venv, independent of the cell's primary JS toolchain) and
   `agent-bot/` (wrappers for the GitHub App bot identity that
@@ -47,6 +48,12 @@ truth.
   GitHub Actions.
 
 See `CONTRIBUTING.md` for the full set of scripts and conventions.
+=======
+  the bundled `queue/` MCP server, used by every agent working on
+  this cell.  Also houses `agent-container/` (Docker image for running the
+  agent in a bounded container).  And `agent-bot/` (GitHub App bot identity wrappers).
+(Add directories here as the cell grows.)
+>>>>>>> after updating
 
 ## Reproduction
 
