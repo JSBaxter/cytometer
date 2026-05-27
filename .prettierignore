@@ -22,6 +22,8 @@ node_modules/
 #  would generate spurious diffs on `copier update`.)
 *.md
 .copier-answers.yml
+.yamllint.yml
+.github/workflows/cell-build.yml
 
 # Out-of-scope subsystems with their own toolchains
 /dev-tools/
