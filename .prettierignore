@@ -17,13 +17,21 @@ node_modules/
 # Static assets
 /static/
 
-# Cell doc spine + copier-managed metadata
-# (stem-cell template owns the formatting of these; reformatting here
-#  would generate spurious diffs on `copier update`.)
+# Cell doc spine + template-owned files
+# (stem-cell owns the formatting of these; reformatting here would
+#  generate spurious diffs on every template sync.)
 *.md
 .copier-answers.yml
 .yamllint.yml
 .github/workflows/cell-build.yml
+.github/workflows/claude-review.yml
+.github/workflows/claude-fix.yml
+.github/workflows/cell-scope.yml
+.github/workflows/cell-converge.yml
+.github/workflows/cell-ceremony.yml
+.github/workflows/template-sync.yml
+.github/ISSUE_TEMPLATE/request.yml
+renovate.json
 
 # Out-of-scope subsystems with their own toolchains
 /dev-tools/
